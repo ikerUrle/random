@@ -1,0 +1,12 @@
+{
+  "name": "random",
+  "version": "1.0.0",
+  "description": "Randomly pick an element from a list",
+  "main": "index.js",
+  "author": "ikerUrle",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "windicss": "^3.4.2"
+  }
+}

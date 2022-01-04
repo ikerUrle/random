@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random</title>
+    <script src="https://unpkg.com/petite-vue" defer init></script>
+    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+    <link rel="stylesheet" href="windi.css" />
+  </head>
+  <body class="h-100vh">
+    <div
+      v-scope="{ 
+        text: '',
+         options : ['option 1','option 2'],
+         result : '',
+         add(value) {
+             if(!value || this.options.includes(value)) return 
+             this.text = ''
+             this.options.push(value)
+         },
+         roll() {
+            this.result = this.options[Math.floor(Math.random() * this.options.length)]
+         },
+         delItem(index) {
+             console.log(index)
+             this.options.pop(index)
+         } 
+        }"
+      class="flex flex-col items-end justify-end h-full bg-cool-gray-200"
+    >
+      <div
+        v-if="result"
+        class="border-b-2 border-cool-gray-300 w-full p-8 mb-auto text-2xl text-right text-cool-gray-600"
+      >
+        {{result}}
+      </div>
+      <div
+        v-for="(option, index) in options"
+        class="flex items-center mx-1 w-full uppercase text-cool-gray-500 p-4 my-1 gap-1"
+        @click="delItem(index)"
+      >
+        <span class="iconify" data-icon="clarity:trash-line"></span>
+        {{option}}
+      </div>
+      <div class="flex w-full items-end text-cool-gray-100">
+        <div class="flex flex-grow divide-x bg-cool-gray-600 divide-cool-gray-200 p-2">
+          <input
+            type="text"
+            v-model="text"
+            placeholder="Enter option..."
+            @keypress.enter="add(event.target.value)"
+            class="flex-grow p-4 text-center bg-cool-gray-600 outline-none"
+          />
+          <button @click="add(text)" class="p-1 text-4xl">
+            <span class="iconify" data-icon="clarity:add-text-line"></span>
+          </button>
+        </div>
+      <button @click="roll" class="p-6 text-4xl bg-red-400 shadow shadow-cool-gray-800">
+        <span class="iconify" data-icon="clarity:sync-line"></span>
+      </button>
+      </div>
+    </div>
+  </body>
+</html>
