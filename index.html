@@ -3,17 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random</title>
     <script src="https://unpkg.com/petite-vue" defer init></script>
     <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
     <link rel="stylesheet" href="windi.css" />
+    <!-- <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="random">
+    <meta name="apple-mobile-web-app-title" content="random">
+    <meta name="theme-color" content="#4b5563">
+    <meta name="msapplication-navbutton-color" content="#4b5563">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" sizes="512x512" href="icon.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="icon.png">
   </head>
   <body class="h-100vh">
     <div
       v-scope="{ 
         text: '',
-         options : ['option 1','option 2'],
+         options : [],
          result : '',
          add(value) {
              if(!value || this.options.includes(value)) return 
@@ -24,7 +38,6 @@
             this.result = this.options[Math.floor(Math.random() * this.options.length)]
          },
          delItem(index) {
-             console.log(index)
              this.options.pop(index)
          } 
         }"
@@ -32,23 +45,30 @@
     >
       <div
         v-if="result"
-        class="border-b-2 border-cool-gray-300 w-full p-8 mb-auto text-2xl text-right text-cool-gray-600"
+        class="border-b-2 border-cool-gray-300 w-full p-8 mb-auto text-2xl text-right text-cool-gray-600 uppercase"
       >
         {{result}}
       </div>
-      <div
-        v-for="(option, index) in options"
-        class="flex items-center mx-1 w-full uppercase text-cool-gray-500 p-4 my-1 gap-1"
-        @click="delItem(index)"
-      >
-        <span class="iconify" data-icon="clarity:trash-line"></span>
-        {{option}}
+      <div class="w-full overflow-auto"> 
+        <div
+          v-for="(option, index) in options"
+          class="flex items-center justify-center mx-auto w-full uppercase text-cool-gray-500 p-4 my-1 gap-1 bg-cool-gray-100"
+        
+        >
+          <div class="ml-auto">
+            {{option}}
+          </div>
+          <div class="ml-auto hover:text-red-400"  @click="delItem(index)">
+            <span class="iconify" data-icon="clarity:trash-line"  @click="delItem(index)"></span>
+          </div>
+        </div>
       </div>
       <div class="flex w-full items-end text-cool-gray-100">
-        <div class="flex flex-grow divide-x bg-cool-gray-600 divide-cool-gray-200 p-2">
+        <div class="flex flex-grow divide-x bg-cool-gray-600 divide-cool-gray-300 p-2">
           <input
             type="text"
             v-model="text"
+            autofocus
             placeholder="Enter option..."
             @keypress.enter="add(event.target.value)"
             class="flex-grow p-4 text-center bg-cool-gray-600 outline-none"
