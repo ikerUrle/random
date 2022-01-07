@@ -1,1 +1,0 @@
-Trying out the same project using different tech stacks.
